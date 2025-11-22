@@ -78,7 +78,7 @@ Crie um arquivo `.env` na raiz do projeto:
     OPENAI_API_KEY=sua_chave
     GOOGLE_API_KEY=sua_chave_do_gemini
     GPT_MODEL=gpt-4o-mini
-    GEMINI_MODEL=gemini-1.5-flash
+    GEMINI_MODEL=gemini-2.5-flash
 
 
 ### 5.3 Configurar Banco de Dados MySQL
