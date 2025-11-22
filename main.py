@@ -2,18 +2,26 @@
 #pip install matplotlib
 #pip install openai
 #pip install python-dotenv
+#pip install google-generativeai
 
 import mysql.connector
 from mysql.connector import errorcode
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from openai import OpenAI
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+load_dotenv()
 
+GPT_MODEL = os.getenv("GPT_MODEL", "gpt-4o-mini")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+genai.configure(api_key=GEMINI_API_KEY)
 
 
 # Variáveis
@@ -784,8 +792,39 @@ def consulta_extra(connect):
 
     cursor.close()
 
+def gerar_relatorio_ia(texto, modelo):
+    if modelo == "chatgpt":
+        resposta = client.chat.completions.create(
+            model=GPT_MODEL,
+            messages=[{"role": "user", "content": texto}]
+        )
+        return resposta.choices[0].message.content
+
+    elif modelo == "gemini":
+        model = genai.GenerativeModel(GEMINI_MODEL)
+        resposta = model.generate_content(texto)
+        return resposta.text
+
+    else:
+        return "Modelo inválido."
+
+
 def ia_relatorio(connect):
-    print("\n--- GERAR RELATÓRIO INTELIGENTE COM IA ---")
+    print("\n--- RELATÓRIO INTELIGENTE COM IA ---")
+
+    print("\nEscolha o modelo de IA:")
+    print("1. ChatGPT (OpenAI)")
+    print("2. Gemini (Google AI)\n")
+
+    opcao = input("Opção desejada: ")
+
+    if opcao == "1":
+        modelo = "chatgpt"
+    elif opcao == "2":
+        modelo = "gemini"
+    else:
+        print("Opção inválida.")
+        return
 
     cursor = connect.cursor()
 
@@ -808,11 +847,11 @@ def ia_relatorio(connect):
     """)
     avaliacoes = cursor.fetchall()
 
-    texto_projetos = "\n".join([f"- {p[0]} (Professor: {p[1]}, Área: {p[2]}, Edição: {p[3]})" for p in projetos])
+    texto_projetos = "\n".join([f"- {p[0]} (Prof: {p[1]}, Área: {p[2]}, Edição: {p[3]})" for p in projetos])
     texto_avaliacoes = "\n".join([f"- {a[0]} avaliou '{a[1]}' com nota {a[2]}" for a in avaliacoes])
 
     prompt = f"""
-    Gere um relatório avaliativo, técnico e bem escrito sobre um evento acadêmico considerando os seguintes dados.
+    Gere um relatório técnico, coerente e analítico sobre um evento acadêmico usando os dados abaixo:
 
     PROJETOS:
     {texto_projetos}
@@ -820,21 +859,18 @@ def ia_relatorio(connect):
     AVALIAÇÕES:
     {texto_avaliacoes}
 
-    Crie um texto com insights interessantes, interpretação dos resultados, 
-    tendências observadas e sugestões de melhoria para as próximas edições.
+    Produza um texto contínuo, formal e acadêmico, com interpretação, 
+    insights e recomendações.
     """
 
     try:
-        resposta = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        texto = resposta.choices[0].message.content
-        print("\n--- RELATÓRIO GERADO PELA IA ---\n")
-        print(texto)
-        print("\n--- FIM DO RELATÓRIO IA ---\n")
+        resposta = gerar_relatorio_ia(prompt, modelo)
+        print("\n--- RELATÓRIO GERADO ---\n")
+        print(resposta)
+        print("\n--- FIM DO RELATÓRIO ---\n")
+
     except Exception as e:
-        print("Erro ao conectar com a IA:", e)
+        print("Erro ao executar IA:", e)
 
     cursor.close()
 

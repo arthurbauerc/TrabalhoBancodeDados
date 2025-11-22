@@ -69,13 +69,17 @@ padrões e recomendações
 
 ### 5.1 Instalar Dependências
 
-    pip install mysql-connector-python matplotlib python-dotenv openai pypandoc
+    pip install mysql-connector-python matplotlib python-dotenv openai pypandoc google-generativeai
 
 ### 5.2 Configurar o arquivo `.env`
 
 Crie um arquivo `.env` na raiz do projeto:
 
     OPENAI_API_KEY=sua_chave
+    GOOGLE_API_KEY=sua_chave_do_gemini
+    GPT_MODEL=gpt-4o-mini
+    GEMINI_MODEL=gemini-1.5-flash
+
 
 ### 5.3 Configurar Banco de Dados MySQL
 
