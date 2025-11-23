@@ -283,7 +283,7 @@ delete = {
 }
 
 
-def connect_resgatocao():
+def connect_sistemaEventos():
     cnx = mysql.connector.connect(
         host='localhost',
         database='eventos_academicos',
@@ -881,7 +881,7 @@ def exit_db(connect):
     print("Conexão com o banco de dados foi encerrada!")
 
 
-def crud_resgatocao(connect):
+def crud_sistemaEventos(connect):
     drop_all_tables(connect)
     create_all_tables(connect)
     insert_test(connect)
@@ -903,7 +903,7 @@ def crud_resgatocao(connect):
 
 
 try:
-    con = connect_resgatocao()
+    con = connect_sistemaEventos()
 
     while True:
         print("""
@@ -933,7 +933,7 @@ try:
                 exit_db(con)
                 break
             case 1:
-                crud_resgatocao(con)
+                crud_sistemaEventos(con)
             case 2:
                 create_all_tables(con)
             case 3:

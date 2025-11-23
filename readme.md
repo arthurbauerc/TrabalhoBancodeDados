@@ -20,7 +20,7 @@ relatórios inteligentes a partir do banco de dados.
 -   **mysql-connector-python** para integração com o banco
 -   **Matplotlib** para geração de gráficos
 -   **python-dotenv** para carregamento seguro de variáveis de ambiente
--   **OpenAI API (GPT-4o-mini)** para análise avançada com IA
+-   **OpenAI API e Gemini** para análise avançada com IA
 -   **Pypandoc** para conversão e geração do arquivo README
 
 ## 3. Estrutura do Banco de Dados
@@ -87,10 +87,6 @@ Criar o banco:
 
     CREATE DATABASE eventos_academicos;
 
-### 5.4 Executar o Sistema
-
-    python ResgateAnimais.py
-
 ## 6. Navegação pelo Menu
 
 O sistema oferece:
@@ -106,14 +102,16 @@ O sistema oferece:
 
 ## 7. Resultados Esperados
 
-O projeto proporciona: - Organização eficiente de informações
-acadêmicas - Análises estatísticas úteis para comitês científicos -
-Relatórios inteligentes gerados automaticamente - Visualização clara e
-objetiva dos dados
+O projeto proporciona: 
+- Organização eficiente de informações
+acadêmicas 
+- Análises estatísticas úteis para comitês científicos 
+- Relatórios inteligentes gerados automaticamente 
+- Visualização clara e objetiva dos dados
 
 ## 8. Conclusão
 
 Este sistema atende aos requisitos acadêmicos e demonstra o uso
 integrado de bancos relacionais, análise de dados, visualização gráfica
-e inteligência artificial --- oferecendo uma plataforma abrangente e
+e inteligência artificial, oferecendo uma plataforma abrangente e
 moderna para gestão de eventos científicos.
