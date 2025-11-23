@@ -284,12 +284,19 @@ delete = {
 
 
 def connect_sistemaEventos():
+    db_user = os.getenv("DB_USER")
+    db_pass = os.getenv("DB_PASS")
+
+    if not db_user or not db_pass:
+        print("AVISO: Variáveis DB_USER ou DB_PASS não encontradas no .env")
+
     cnx = mysql.connector.connect(
         host='localhost',
         database='eventos_academicos',
-        user='root',
-        password='Awds0705@'
+        user=db_user,       
+        password=db_pass    
     )
+    
     if cnx.is_connected():
         db_info = cnx.server_info
         print("Conectado ao servidor MySQL versão", db_info)

@@ -1,117 +1,111 @@
-# Sistema de Gerenciamento de Eventos Acadêmicos
+# Sistema de Gerenciamento de Eventos Cientificos (GECi)
 
-Este projeto implementa um sistema completo de gerenciamento de eventos
-acadêmicos com integração a banco de dados MySQL, consultas SQL
-avançadas, geração de gráficos estatísticos e uso de Inteligência
-Artificial Generativa para análise automática dos dados.
+**Universidade Federal de Santa Catarina (UFSC) - Campus Araranguá**
 
-## 1. Objetivo Geral
+**Disciplina:** DEC7588 - Banco de Dados (2025.2)
 
-Desenvolver uma aplicação acadêmica robusta que: - Gerencie entidades
-como usuários, instituições, professores, alunos, edições, projetos e
-avaliações. - Execute operações CRUD completas. - Gere gráficos
-analíticos baseados nos dados do evento. - Utilize IA para sintetizar
-relatórios inteligentes a partir do banco de dados.
+**Professor:** Dr. Alexandre Leopoldo Gonçalves
 
-## 2. Tecnologias Utilizadas
+---
 
--   **Python 3**
--   **MySQL 8**
--   **mysql-connector-python** para integração com o banco
--   **Matplotlib** para geração de gráficos
--   **python-dotenv** para carregamento seguro de variáveis de ambiente
--   **OpenAI API e Gemini** para análise avançada com IA
--   **Pypandoc** para conversão e geração do arquivo README
+**Equipe de Desenvolvimento:**
+* **Arthur Bauer Cardoso** (Matrícula: 24103788)
+* **Diva Moreira de Souza Hennemann** (Matrícula: 24102022)
+* **Luís Antônio Scarabelot Fiabani** (Matrícula: 24102006)
 
-## 3. Estrutura do Banco de Dados
+---
 
-A aplicação cria automaticamente tabelas estruturadas para: -
-Instituições - Usuários - Professores, Alunos, Avaliadores - Edições de
-eventos - Áreas temáticas - Projetos (Full Papers, Short Papers) -
-Avaliações - Relações entre entidades
+## 1. Introdução e Objetivos
 
-Todas as tabelas incluem chaves primárias, estrangeiras, índices e
-regras de integridade referencial.
+Este projeto consiste no desenvolvimento de uma aplicação voltada ao domínio de **Gerenciamento de Eventos Científicos**, elaborada como requisito parcial para aprovação na disciplina de Banco de Dados.
 
-## 4. Funcionalidades Principais
+O objetivo principal é a aplicação prática dos fundamentos de projeto e implementação de bancos de dados relacionais. O sistema foi projetado para gerenciar o fluxo de informações de um evento científico, contemplando o cadastro de instituições, a gestão de usuários (professores, alunos e avaliadores), a submissão de projetos (artigos completos e resumos) e o processo de avaliação.
 
-### 4.1 CRUD Completo
+Além das operações transacionais padrão, o sistema integra funcionalidades de análise de dados com visualização gráfica e recursos de Inteligência Artificial Generativa para auxílio na tomada de decisão.
 
-O sistema implementa: - Criação estruturada de todas as tabelas -
-Inserção de dados fictícios bem construídos - Atualizações automáticas e
-manuais com validação - Remoção automática e manual com segurança - Drop
-completo do banco para reinicialização
+## 2. Tecnologias e Ferramentas Utilizadas
 
-### 4.2 Consultas SQL Avançadas
+A arquitetura do sistema foi construída utilizando as seguintes tecnologias:
 
-Inclui consultas para: - Quantidade de projetos por área temática e
-edição - Média de pontuação dos projetos por professor - Distribuição
-institucional de submissões - Comparação entre Full Papers e Short
-Papers
+* **Linguagem de Programação:** Python 3.
+* **Sistema Gerenciador de Banco de Dados (SGBD):** MySQL 8.0.
+* **Interface de Conexão:** Biblioteca `mysql-connector-python`.
+* **Visualização de Dados:** Biblioteca `Matplotlib` para geração de gráficos estatísticos.
+* **Inteligência Artificial:** Integração com APIs de LLMs (OpenAI GPT e Google Gemini) para processamento de linguagem natural.
+* **Segurança e Configuração:** Biblioteca `python-dotenv` para gerenciamento de variáveis de ambiente sensíveis.
 
-Todas acompanhadas por **gráficos profissionais** gerados via
-Matplotlib.
+## 3. Arquitetura do Banco de Dados
 
-### 4.3 Inteligência Artificial
+O projeto de banco de dados foi estruturado seguindo as etapas rigorosas de modelagem conceitual e lógica, garantindo a normalização e integridade referencial dos dados. O esquema relacional abrange as seguintes macro-entidades:
 
-O sistema integra IA generativa para: - Ler dados do banco - Produzir
-relatórios acadêmicos técnicos e detalhados - Analisar tendências,
-padrões e recomendações
+1.  **Institucional:** Tabelas dedicadas a *Instituições* e *Áreas Temáticas*.
+2.  **Atores:** Gerenciamento de *Usuários*, com especialização para *Professores*, *Alunos* e *Avaliadores*.
+3.  **Produção Acadêmica:** Controle de *Edições* do evento, *Projetos* (classificados em *Full Papers* e *Short Papers*) e registros de *Avaliações*.
 
-### 4.4 Segurança e Boas Práticas
+O script DDL (*Data Definition Language*) implementa todas as chaves primárias, chaves estrangeiras e índices necessários para a consistência do modelo.
 
--   Uso de `.env` para armazenar API Key
--   Validação robusta nas operações manuais (inserção, atualização,
-    remoção)
--   Prevenção de SQL Injection no uso interativo
+## 4. Funcionalidades do Sistema
 
-## 5. Execução do Projeto
+Em conformidade com os requisitos especificados para o Trabalho Final, a aplicação oferece:
 
-### 5.1 Instalar Dependências
+### 4.1. Gestão de Dados e Operações DML
+O sistema implementa um módulo principal que permite a execução de operações de manipulação de dados (*Data Manipulation Language* - DML):
+* **Inicialização (Seed):** Funcionalidade para criação automática da estrutura do banco e povoamento com dados iniciais, permitindo a validação imediata das regras de negócio.
+* **Reinicialização do Ambiente:** Opção para exclusão total das tabelas (*Drop Tables*) para testes de integridade.
+* **CRUD Transacional:** Interfaces para Inserção, Atualização e Exclusão de registros em todas as tabelas do modelo, com tratamento de dependências.
 
-    pip install mysql-connector-python matplotlib python-dotenv openai pypandoc google-generativeai
+### 4.2. Relatórios Gerenciais e Visualização Gráfica
+Foram desenvolvidas consultas SQL complexas, utilizando junções (*JOINs*) entre múltiplas tabelas e funções de agregação (*SUM, AVG, COUNT*). As análises disponíveis incluem:
 
-### 5.2 Configurar o arquivo `.env`
+1.  **Distribuição Temática:** Quantitativo de projetos submetidos por Área Temática e Edição do evento.
+2.  **Desempenho de Orientação:** Média de pontuação dos projetos agrupada por Professor Orientador.
+3.  **Origem das Submissões:** Volume de trabalhos submetidos segregado por Instituição.
+4.  **Tipologia de Projetos:** Comparativo quantitativo entre as categorias *Full Papers* e *Short Papers*.
 
-Crie um arquivo `.env` na raiz do projeto:
+Para cada consulta, o sistema apresenta o resultado tabular (SQL) e gera automaticamente a representação gráfica correspondente via `Matplotlib`.
 
-    OPENAI_API_KEY=sua_chave
-    GOOGLE_API_KEY=sua_chave_do_gemini
-    GPT_MODEL=gpt-4o-mini
-    GEMINI_MODEL=gemini-2.5-flash
+### 4.3. Módulo de Inteligência Artificial Generativa
+O sistema demonstra a integração com conceitos de IA Generativa para:
+* Realizar a leitura contextual dos dados armazenados no banco.
+* Gerar relatórios técnicos automatizados.
+* Fornecer análises de tendências e recomendações baseadas nos dados do evento.
 
+## 5. Instruções de Instalação e Execução
 
-### 5.3 Configurar Banco de Dados MySQL
+Para a correta execução da aplicação, siga os passos abaixo:
 
+### 5.1. Pré-requisitos
+* Python 3.x instalado.
+* Servidor MySQL 8.0 em execução.
+
+### 5.2. Instalação das Dependências
+Execute o comando abaixo no terminal para instalar as bibliotecas necessárias:
+
+```bash
+pip install mysql-connector-python matplotlib python-dotenv openai google-generativeai pypandoc
+```
+
+### 5.3. Configuração de Ambiente (.env)
+Crie um arquivo .env na raiz do projeto contendo as credenciais de acesso ao banco e as chaves de API para os serviços de IA:
+
+```bash
+OPENAI_API_KEY=sua_chave_openai
+GOOGLE_API_KEY=sua_chave_gemini
+GPT_MODEL=gpt-4o-mini
+GEMINI_MODEL=gemini-2.5-flash
+DB_USER=seu_usuario_mysql
+DB_PASS=sua_senha_mysql
+```
+
+### 5.4. Configurar Banco de Dados MySQL
 Criar o banco:
+```bash
+CREATE DATABASE eventos_academicos;
+```
 
-    CREATE DATABASE eventos_academicos;
+### 5.5. Execução da Aplicação
+Para iniciar o sistema, execute o arquivo principal:
 
-## 6. Navegação pelo Menu
-
-O sistema oferece:
-
--   CRUD completo
--   Inserção manual segura
--   Remoção manual segura
--   Atualização segura
--   Consultas SQL (4 opções)
--   Geração de gráficos analíticos
--   Relatório por IA
--   Visualização de tabelas
-
-## 7. Resultados Esperados
-
-O projeto proporciona: 
-- Organização eficiente de informações
-acadêmicas 
-- Análises estatísticas úteis para comitês científicos 
-- Relatórios inteligentes gerados automaticamente 
-- Visualização clara e objetiva dos dados
-
-## 8. Conclusão
-
-Este sistema atende aos requisitos acadêmicos e demonstra o uso
-integrado de bancos relacionais, análise de dados, visualização gráfica
-e inteligência artificial, oferecendo uma plataforma abrangente e
-moderna para gestão de eventos científicos.
+```bash
+python main.py
+```
